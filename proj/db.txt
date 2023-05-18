@@ -1,0 +1,53 @@
+create database QuesHub;
+use QuesHub;
+
+create table Users(
+	username varchar(100) primary key,
+    phone double unique not null,
+    userkey varchar(266),
+    role char(1)
+);
+
+create table Lang(
+	langId int primary key auto_increment,
+ langDesc varchar(30) not null
+);
+create table QuesType(
+	quesTypeId int primary key auto_increment,
+ quesTypeDesc varchar(30) not null
+);
+create table DiffLevel(
+	levelId int primary key auto_increment,
+	levelDesc varchar(30) not null
+);
+create table Ques(
+	quesId int primary key,
+	ques varchar(266), 
+    langId int, 
+    levelId int,
+    quesTypeId int,
+    foreign key(langId) references Lang(langId),
+    foreign key(quesTypeId) references QuesType(quesTypeId),
+    foreign key(levelId) references DiffLevel(levelId)
+);
+create table Options(
+	optionId int primary key auto_increment,
+    quesId int,
+    optionDesc varchar(266),
+    isAns boolean,
+    foreign key(quesId) references Ques(quesId)
+);
+
+
+insert into Lang(langDesc) values ("php");
+insert into Lang(langDesc) values ("java");
+insert into Lang(langDesc) values ("javascript");
+insert into Lang(langDesc) values ("c");
+insert into Lang(langDesc) values ("python");
+
+insert into QuesType(quesTypeDesc) values ("radio");
+insert into QuesType(quesTypeDesc) values ("checkbox");
+
+insert into DiffLevel(levelDesc) values ("easy");
+insert into DiffLevel(levelDesc) values ("medium");
+insert into DiffLevel(levelDesc) values ("hard");
